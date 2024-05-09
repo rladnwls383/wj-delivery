@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView } from 'react-native'
+import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
@@ -7,8 +7,16 @@ import { themeColors } from '../theme'
 import Categories from '../components/categories'
 import FeaturedRow from '../components/featuredRow'
 import { featured } from '../constants'
+import { signOut } from 'firebase/auth'
+import { auth } from '../firebase'
+import { useNavigation } from '@react-navigation/native'
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
+  const handleLogout = async () =>{
+    await signOut(auth);
+    navigation.navigate('Login' as never);
+  }
   return (
     <SafeAreaView className="bg-White">
       <StatusBar />
@@ -20,14 +28,11 @@ export default function HomeScreen() {
             <Icon.X height="16" width="16" stroke="gray" />
           </View>
         </View>
-        <View style={{backgroundColor: themeColors.bgColor(1)}} className='p-3 rounded-full'>
-          <Icon.Sliders height="20" width="20" strokeWidth={2.5} stroke="white" />
-        </View>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          paddingBottom: 20
+          paddingBottom: 80
         }} >
 
         <Categories />
@@ -46,6 +51,9 @@ export default function HomeScreen() {
             })
           }
         </View>
+        <TouchableOpacity onPress={handleLogout}>
+        <Text className='text-black text-lg font-bold'>로그아웃</Text>
+      </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   )

@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectRestaurant } from '../slices/restaurantSlice';
 import { removeFromCart, selectCartItems, selectCartTotal } from '../slices/cartSlice';
-import { useAppSelector } from '../hooks';
 import { DishItem } from '../types/interface';
 
   interface GroupedItems {

@@ -5,21 +5,25 @@ import RestaurantScreen from './screens/RestaurantScreen';
 import CartScreen from './screens/CartScreen';
 import OrderPrepairingScreen from './screens/OrderPrepairingScreen';
 import DeliveryScreen from './screens/DeliveryScreen';
+import LoginScreen from './screens/LoginScreen';
+import SignupScreen from './screens/SignupScreen';
+import useAuth from './hooks/useAuth';
 
 const Stack = createNativeStackNavigator();
 
 export default function Navigation() {
-  return (
+  const {user} = useAuth();
+  return(
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" screenOptions={{
-        headerShown: false
-      }}>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Restaurant" component={RestaurantScreen} />
-        <Stack.Screen name="Cart" options={{presentation: 'modal'}} component={CartScreen} />
-        <Stack.Screen name="OrderPrepairing" options={{presentation: 'fullScreenModal'}} component={OrderPrepairingScreen} />
-        <Stack.Screen name="Delivery" options={{presentation: 'fullScreenModal'}} component={DeliveryScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+        <Stack.Navigator initialRouteName={user? 'Home' : 'Login'} screenOptions={{headerShown: false}}>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Signup" component={SignupScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Restaurant" component={RestaurantScreen} />
+          <Stack.Screen name="Cart" options={{presentation: 'modal'}} component={CartScreen} />
+          <Stack.Screen name="OrderPrepairing" options={{presentation: 'fullScreenModal'}} component={OrderPrepairingScreen} />
+          <Stack.Screen name="Delivery" options={{presentation: 'fullScreenModal'}} component={DeliveryScreen} /> 
+        </Stack.Navigator>
+  </NavigationContainer>
+)
 }

@@ -22,7 +22,7 @@ export default function CartIcon() {
                 </Text>
             </View>
             <Text className="felx-1 text-center font-extrabold text-white text-lg">
-                View Cart
+                장바구니 보기
             </Text>
             <Text className="font-extrabold text-white text-lg">
                 ￦{cartTotal}
